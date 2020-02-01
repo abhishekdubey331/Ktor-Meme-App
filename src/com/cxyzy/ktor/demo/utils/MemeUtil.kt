@@ -24,4 +24,8 @@ class MemeUtil {
         return BasicDBObject("_id", -1)
     }
 
+    fun sortPopular(): Bson {
+        return BasicDBObject("downloads", -1).append("upVotes", -1).append("shared", -1)
+    }
+
 }

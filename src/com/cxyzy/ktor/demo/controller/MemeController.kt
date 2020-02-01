@@ -64,6 +64,23 @@ fun Route.userRoutes() {
         }
     }
 
+    route(ApiUrls.FETCH_POPULAR_MEMES) {
+        get {
+            val memes = client.getDatabase(dbName)
+                .getCollection<Meme>(collectionName)
+                .find()
+                .sort(memeUtil.sortPopular())
+                .limit(PAGE_SIZE)
+                .toList()
+
+            if (memes.isNullOrEmpty()) {
+                memeUtil.handleEmptyData(call)
+            } else {
+                call.respond(HttpStatusCode.OK, memes)
+            }
+        }
+    }
+
 
 }
 
