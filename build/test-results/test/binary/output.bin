@@ -1,0 +1,4 @@
+…2020-02-01 01:28:41.620 [Test worker] INFO  ktor.test - No ktor.deployment.watch patterns specified, automatic reload is not active
+p2020-02-01 01:28:41.904 [DefaultDispatcher-worker-1 @request#1] INFO  ktor.test - Unhandled: POST - /users/add
+x2020-02-01 01:28:41.913 [Test worker] INFO  ktor.test - Application stopping: io.ktor.application.Application@2689e8c7
+w2020-02-01 01:28:41.914 [Test worker] INFO  ktor.test - Application stopped: io.ktor.application.Application@2689e8c7
