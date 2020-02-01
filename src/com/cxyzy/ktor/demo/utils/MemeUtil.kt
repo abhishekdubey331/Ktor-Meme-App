@@ -27,7 +27,7 @@ class MemeUtil : KoinComponent {
     }
 
     fun getLastId(call: ApplicationCall): Int {
-        return (call.parameters["lastId"]?.toInt()) ?: 0
+        return (call.request.queryParameters["lastId"]?.toInt()) ?: 0
     }
 
 
