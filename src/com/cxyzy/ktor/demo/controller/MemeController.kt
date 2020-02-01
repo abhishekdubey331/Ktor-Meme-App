@@ -1,8 +1,11 @@
 package com.cxyzy.ktor.demo.controller
 
+import com.cxyzy.ktor.demo.PAGE_SIZE
 import com.cxyzy.ktor.demo.bean.Meme
+import com.cxyzy.ktor.demo.collectionName
 import com.cxyzy.ktor.demo.dbName
-import com.mongodb.BasicDBObject
+import com.cxyzy.ktor.demo.utils.ApiUrls
+import com.cxyzy.ktor.demo.utils.MemeUtil
 import io.ktor.application.call
 import io.ktor.http.HttpStatusCode
 import io.ktor.response.respond
@@ -18,22 +21,23 @@ import org.slf4j.LoggerFactory
 
 fun Route.userRoutes() {
 
-    val logger: Logger = LoggerFactory.getLogger("UserController")
+    val logger: Logger = LoggerFactory.getLogger("MemeController")
     val client: CoroutineClient by inject()
+    val memeUtil: MemeUtil by inject()
 
-    val collectionName = "memes"
-
-    route("/memes") {
-
-        get("/list/{lastId}") {
-            val lastId = call.parameters["lastId"]?.toInt()
+    route(ApiUrls.FETCH_LATEST_MEMES) {
+        get {
             val memes = client.getDatabase(dbName)
                 .getCollection<Meme>(collectionName)
-                .find(Meme::_id lt lastId)
-                .sort(BasicDBObject("_id", -1))
-                .limit(10).toList()
+                .find(Meme::_id lt memeUtil.getLastId(call))
+                .sort(memeUtil.sortDescending())
+                .limit(PAGE_SIZE).toList()
 
-            call.respond(HttpStatusCode.OK, memes)
+            if (memes.isNullOrEmpty()) {
+                memeUtil.handleEmptyData(call)
+            } else {
+                call.respond(HttpStatusCode.OK, memes)
+            }
         }
     }
 }

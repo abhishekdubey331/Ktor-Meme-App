@@ -1,5 +1,6 @@
 package com.cxyzy.ktor.demo
 
+import com.cxyzy.ktor.demo.utils.MemeUtil
 import com.cxyzy.ktor.demo.controller.userRoutes
 import com.fasterxml.jackson.databind.SerializationFeature
 import io.ktor.application.Application
@@ -69,4 +70,5 @@ val module = module {
     single {
         KMongo.createClient("mongodb+srv://alanwalker8060:V7dI888lgr0otG1F@memecluster-y62ss.mongodb.net").coroutine
     }
+    single { MemeUtil() }
 }
