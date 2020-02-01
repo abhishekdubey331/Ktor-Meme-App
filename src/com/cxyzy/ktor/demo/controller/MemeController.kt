@@ -16,13 +16,10 @@ import io.ktor.routing.route
 import org.koin.ktor.ext.inject
 import org.litote.kmongo.*
 import org.litote.kmongo.coroutine.aggregate
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 
 
 fun Route.userRoutes() {
 
-    val logger: Logger = LoggerFactory.getLogger("MemeController")
     val memeUtil: MemeUtil by inject()
 
     route(ApiUrls.FETCH_LATEST_MEMES) {
