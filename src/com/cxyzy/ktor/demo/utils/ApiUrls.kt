@@ -9,5 +9,9 @@ object ApiUrls {
 
     const val FETCH_POPULAR_MEMES = "/popularMemes"
 
+    const val INC_DOWNLOAD = "/download"
 
+    const val INC_SHARE = "/share"
+
+    const val INC_UP_VOTE = "/upvote/{id}"
 }
